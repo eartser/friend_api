@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}{{user.username}}{% endblock %}
+{% block content %}
+
+    <h2>{{user.username}}</h2>
+
+    <hr>
+
+    {% if friends %}
+        {% for u in friends %}
+			<a href="{% url 'friend_app:retrieve' u.id %}">{{u.username}}</a>
+
+            <form action="{% url 'friend_app:end_friendship' user.id %}" method="POST">
+
+                {% csrf_token %}
+
+                <button type="submit" name="friend_id" value="{{u.id}}">End friendship</button>
+
+            </form>
+
+            <br>
+		{% endfor %}
+	{% endif %}
+
+    <hr>
+
+    <form action="{% url 'friend_app:start_friendship' user.id %}" method="POST">
+
+        {% csrf_token %}
+
+        <input type="number" required placeholder="New friend id" name="friend_id"><br>
+        <button type="submit">Add new friend</button>
+    </form>
+
+{% endblock %}

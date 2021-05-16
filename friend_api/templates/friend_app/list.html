@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}List of users{% endblock %}
+{% block content %}
+
+	{% if users %}
+		{% for u in users %}
+			<a href="{% url 'friend_app:retrieve' u.id %}">{{u.username}}</a> <br>
+		{% endfor %}
+	{% endif %}
+
+{% endblock %}
